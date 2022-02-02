@@ -12,14 +12,17 @@ public class RoverTest {
     private Direction direction = Direction.EAST;
     private int x = 4;
     private int y = 2;
+    private final Location location = new Location(x, y, direction);
 
     @BeforeEach
     void setUp() {
-        rover = new Rover(x, y, direction);
+        Location location = new Location(x, y, direction);
+        rover = new Rover(location);
     }
 
     @Test
-    public void whenRoverIsInitializedThenCoordinatesAreSet() {
+    public void
+    whenRoverIsInitializedThenCoordinatesAreSet() {
         assertThat(rover.x()).isEqualTo(x);
         assertThat(rover.y()).isEqualTo(y);
     }
@@ -144,16 +147,11 @@ public class RoverTest {
     }
 
     @Test
-    public void whenReceiveCommandThenReportCoordinatesAndDirection() {
-        String report = rover.receiveCommand("F");
+    public void whenReceiveCommandThenReportLocation() {
+        Location expected = location.copy();
 
-        assertThat(report).isEqualTo("(5, 2) EAST");
-    }
+        String report = rover.receiveCommand("");
 
-    @Test
-    public void whenReceiveDifferentCommandThenReportDifferentCoordinatesAndDirection() {
-        String report = rover.receiveCommand("B");
-
-        assertThat(report).isEqualTo("(3, 2) EAST");
+        assertThat(report).isEqualTo(expected.report());
     }
 }

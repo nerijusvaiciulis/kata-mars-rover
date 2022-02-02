@@ -56,4 +56,12 @@ public final class Location {
     public void right() {
         direction = direction.right();
     }
+
+    String report() {
+        return String.format("(%d, %d) %s", x(), y(), direction());
+    }
+
+    public Location copy() {
+        return new Location(x, y, direction);
+    }
 }

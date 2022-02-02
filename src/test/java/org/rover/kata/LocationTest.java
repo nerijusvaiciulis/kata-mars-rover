@@ -2,11 +2,9 @@ package org.rover.kata;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.rover.kata.Location;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.rover.kata.Direction.*;
-import static org.rover.kata.Direction.SOUTH;
 
 public class LocationTest {
 
@@ -105,5 +103,10 @@ public class LocationTest {
         location.backward();
 
         assertThat(location.y()).isEqualTo(y + 1);
+    }
+
+    @Test
+    public void whenReportThenReturnFormattedText() {
+        assertThat(location.report()).isEqualTo("(1, 2) EAST");
     }
 }

@@ -15,7 +15,7 @@ public final class Rover {
         for (char command : commands.toCharArray()) {
             execute(command);
         }
-        return String.format("(%d, %d) %s", location.x(), location.y(), location.direction());
+        return location.report();
     }
 
     private void execute(char command) {
