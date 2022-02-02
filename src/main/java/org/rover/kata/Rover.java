@@ -5,7 +5,7 @@ import static org.rover.kata.Direction.*;
 public final class Rover {
     private int x;
     private int y;
-    private final Direction direction;
+    private Direction direction;
 
     public Rover(int x, int y, Direction direction) {
         this.x = x;
@@ -24,13 +24,29 @@ public final class Rover {
         } else if (NORTH == direction && "B".equals(command)) {
             y -= 1;
         } else if (WEST == direction && "F".equals(command)) {
-            x-= 1;
+            x -= 1;
         } else if (WEST == direction && "B".equals(command)) {
-            x+= 1;
+            x += 1;
         } else if (SOUTH == direction && "F".equals(command)) {
-            y-= 1;
+            y -= 1;
         } else if (SOUTH == direction && "B".equals(command)) {
-            y+= 1;
+            y += 1;
+        } else if (EAST == direction && "L".equals(command)) {
+            direction = NORTH;
+        } else if (NORTH == direction && "L".equals(command)) {
+            direction = WEST;
+        } else if (WEST == direction && "L".equals(command)) {
+            direction = SOUTH;
+        } else if (SOUTH == direction && "L".equals(command)) {
+            direction = EAST;
+        } else if (SOUTH == direction && "R".equals(command)) {
+            direction = WEST;
+        } else if (WEST == direction && "R".equals(command)) {
+            direction = NORTH;
+        } else if (NORTH == direction && "R".equals(command)) {
+            direction = EAST;
+        } else if (EAST == direction && "R".equals(command)) {
+            direction = SOUTH;
         }
     }
 
