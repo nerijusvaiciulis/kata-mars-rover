@@ -3,8 +3,6 @@ package org.rover.kata;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import static org.rover.kata.Direction.*;
-
 @ToString
 @EqualsAndHashCode
 public final class Location {
@@ -31,26 +29,20 @@ public final class Location {
     }
 
     public void forward() {
-        if (EAST == direction) {
-            x += 1;
-        } else if (NORTH == direction) {
-            y += 1;
-        } else if (WEST == direction) {
-            x -= 1;
-        } else if (SOUTH == direction) {
-            y -= 1;
+        switch (direction) {
+            case EAST -> x += 1;
+            case NORTH -> y += 1;
+            case WEST -> x -= 1;
+            case SOUTH -> y -= 1;
         }
     }
 
     public void backward() {
-        if (EAST == direction) {
-            x -= 1;
-        } else if (NORTH == direction) {
-            y -= 1;
-        } else if (WEST == direction) {
-            x += 1;
-        } else if (SOUTH == direction) {
-            y += 1;
+        switch (direction) {
+            case EAST -> x -= 1;
+            case NORTH -> y -= 1;
+            case WEST -> x += 1;
+            case SOUTH -> y += 1;
         }
     }
 
