@@ -4,19 +4,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.rover.kata.Direction.*;
 
 public class RoverTest {
 
-    private Rover rover;
-    private Direction direction = Direction.EAST;
-    private int x = 4;
-    private int y = 2;
+    private final Direction direction = Direction.EAST;
+    private final int x = 4;
+    private final int y = 2;
     private final Location location = new Location(x, y, direction);
+    private Rover rover;
 
     @BeforeEach
     void setUp() {
-        Location location = new Location(x, y, direction);
         rover = new Rover(location);
     }
 
@@ -33,117 +31,87 @@ public class RoverTest {
     }
 
     @Test
-    public void whenReceiveCommandThenExecuteAction() {
-        rover.receiveCommand("");
-    }
-
-    @Test
-    public void givenDirectionEastWhenReceiveCommandFThenXIncrease() {
-        rover.receiveCommand("F");
-        assertThat(rover.x()).isEqualTo(x + 1);
-    }
-
-    @Test
-    public void givenDirectionEastWhenReceiveCommandBThenXDecrease() {
-        rover.receiveCommand("B");
-        assertThat(rover.x()).isEqualTo(x - 1);
-    }
-
-    @Test
-    public void givenDirectionNorthWhenReceiveCommandFThenYIncrease() {
-        rover = new Rover(x, y, NORTH);
+    public void whenReceiveCommandFThenForward() {
+        Location expected = location.copy();
+        expected.forward();
 
         rover.receiveCommand("F");
 
-        assertThat(rover.y()).isEqualTo(y + 1);
+        assertThat(location).isEqualTo(expected);
     }
 
     @Test
-    public void givenDirectionNorthWhenReceiveCommandBThenYDecrease() {
-        rover = new Rover(x, y, NORTH);
+    public void whenReceiveCommandBThenBackward() {
+        Location expected = location.copy();
+        expected.backward();
 
         rover.receiveCommand("B");
 
-        assertThat(rover.y()).isEqualTo(y - 1);
+        assertThat(location).isEqualTo(expected);
     }
 
     @Test
-    public void givenDirectionWestWhenReceiveCommandFThenXDecrease() {
-        rover = new Rover(x, y, WEST);
-
-        rover.receiveCommand("F");
-
-        assertThat(rover.x()).isEqualTo(x - 1);
-    }
-
-    @Test
-    public void givenDirectionWestWhenReceiveCommandBThenXIncrease() {
-        rover = new Rover(x, y, WEST);
-
-        rover.receiveCommand("B");
-
-        assertThat(rover.x()).isEqualTo(x + 1);
-    }
-
-    @Test
-    public void givenDirectionSouthWhenReceiveCommandFThenYDecrease() {
-        rover = new Rover(x, y, SOUTH);
-
-        rover.receiveCommand("F");
-
-        assertThat(rover.y()).isEqualTo(y - 1);
-    }
-
-    @Test
-    public void givenDirectionSouthWhenReceiveCommandBThenYIncrease() {
-        rover = new Rover(x, y, SOUTH);
-
-        rover.receiveCommand("B");
-
-        assertThat(rover.y()).isEqualTo(y + 1);
-    }
-
-    @Test
-    public void whenReceiveCommandLThenDirectionLeft() {
-        Direction expected = direction.left();
+    public void whenReceiveCommandLThenLeft() {
+        Location expected = location.copy();
+        expected.left();
 
         rover.receiveCommand("L");
 
-        assertThat(rover.direction()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
-    public void whenReceiveCommandRThenDirectionRight() {
-        Direction expected = direction.right();
+    public void whenReceiveCommandRThenRight() {
+        Location expected = location.copy();
+        expected.right();
 
         rover.receiveCommand("R");
 
-        assertThat(rover.direction()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveMultipleCommandsThenExecuteAll() {
+        Location expected = location.copy();
+        expected.forward();
+        expected.forward();
+
         rover.receiveCommand("FF");
 
-        assertThat(rover.x()).isEqualTo(x + 2);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
+        Location expected = location.copy();
+        expected.forward();
+        expected.left();
+        expected.forward();
+        expected.left();
+        expected.forward();
+        expected.left();
+        expected.forward();
+        expected.left();
+
         rover.receiveCommand("FLFLFLFL");
 
-        assertThat(rover.x()).as("x").isEqualTo(x);
-        assertThat(rover.y()).as("y").isEqualTo(y);
-        assertThat(rover.direction()).isEqualTo(direction);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
+        Location expected = location.copy();
+        expected.forward();
+        expected.right();
+        expected.forward();
+        expected.right();
+        expected.forward();
+        expected.right();
+        expected.forward();
+        expected.right();
         rover.receiveCommand("FRFRFRFR");
 
-        assertThat(rover.x()).as("x").isEqualTo(x);
-        assertThat(rover.y()).as("y").isEqualTo(y);
-        assertThat(rover.direction()).isEqualTo(direction);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test

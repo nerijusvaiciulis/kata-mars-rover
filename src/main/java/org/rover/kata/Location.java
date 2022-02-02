@@ -1,7 +1,12 @@
 package org.rover.kata;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import static org.rover.kata.Direction.*;
 
+@ToString
+@EqualsAndHashCode
 public final class Location {
     private Direction direction;
     private int x;

@@ -41,4 +41,8 @@ public final class Rover {
     public Direction direction() {
         return location.direction();
     }
+
+    public Location location() {
+        return location;
+    }
 }
