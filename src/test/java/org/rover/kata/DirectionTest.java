@@ -2,19 +2,47 @@ package org.rover.kata;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.rover.kata.Direction.*;
+
 class DirectionTest {
     @Test
-    public void whenDirectionNorthThenNorth() {
-        Direction north = Direction.NORTH;
+    public void whenEastLeftThenNorth() {
+        assertThat(EAST.left()).isEqualTo(NORTH);
     }
 
     @Test
-    public void whenDirectionSouthThenSouth() {
-        Direction south = Direction.SOUTH;
+    public void whenNorthLeftThenWest() {
+        assertThat(NORTH.left()).isEqualTo(WEST);
     }
 
     @Test
-    public void whenDirectionWestThenWest() {
-        Direction west = Direction.WEST;
+    public void whenWestLeftThenSouth() {
+        assertThat(WEST.left()).isEqualTo(SOUTH);
+    }
+
+    @Test
+    public void whenSouthLeftThenEast() {
+        assertThat(SOUTH.left()).isEqualTo(EAST);
+    }
+
+    @Test
+    public void whenNorthRightThenEast() {
+        assertThat(NORTH.right()).isEqualTo(EAST);
+    }
+
+    @Test
+    public void whenWestRightThenNorth() {
+        assertThat(WEST.right()).isEqualTo(NORTH);
+    }
+
+    @Test
+    public void whenSouthRightThenWest() {
+        assertThat(SOUTH.right()).isEqualTo(WEST);
+    }
+
+    @Test
+    public void whenEastRightThenSouth() {
+        assertThat(EAST.right()).isEqualTo(SOUTH);
     }
 }
