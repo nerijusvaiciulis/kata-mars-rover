@@ -178,4 +178,18 @@ public class RoverTest {
 
         assertThat(rover.x()).isEqualTo(x + 2);
     }
+
+    @Test
+    public void whenReceiveCommandThenReportCoordinatesAndDirection() {
+        String report = rover.receiveCommand("F");
+
+        assertThat(report).isEqualTo("(5, 2) EAST");
+    }
+
+    @Test
+    public void whenReceiveDifferentCommandThenReportDifferentCoordinatesAndDirection() {
+        String report = rover.receiveCommand("B");
+
+        assertThat(report).isEqualTo("(3, 2) EAST");
+    }
 }

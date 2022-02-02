@@ -14,7 +14,7 @@ public final class Rover {
     }
 
 
-    public void receiveCommand(String commands) {
+    public String receiveCommand(String commands) {
         for (char command : commands.toCharArray()) {
             if (EAST == direction && 'F' == command) {
                 x += 1;
@@ -50,6 +50,7 @@ public final class Rover {
                 direction = SOUTH;
             }
         }
+        return String.format("(%d, %d) %s", x, y, direction);
     }
 
     public int x() {
