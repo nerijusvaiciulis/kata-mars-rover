@@ -101,75 +101,21 @@ public class RoverTest {
     }
 
     @Test
-    public void givenDirectionEastWhenReceiveCommandLThenDirectionNorth() {
-        rover = new Rover(x, y, EAST);
+    public void whenReceiveCommandLThenDirectionLeft() {
+        Direction expected = direction.left();
 
         rover.receiveCommand("L");
 
-        assertThat(rover.direction()).isEqualTo(NORTH);
+        assertThat(rover.direction()).isEqualTo(expected);
     }
 
     @Test
-    public void givenDirectionNorthWhenReceiveCommandLThenDirectionWest() {
-        rover = new Rover(x, y, NORTH);
-
-        rover.receiveCommand("L");
-
-        assertThat(rover.direction()).isEqualTo(WEST);
-    }
-
-    @Test
-    public void givenDirectionWestWhenReceiveCommandLThenDirectionSouth() {
-        rover = new Rover(x, y, WEST);
-
-        rover.receiveCommand("L");
-
-        assertThat(rover.direction()).isEqualTo(SOUTH);
-    }
-
-    @Test
-    public void givenDirectionSouthWhenReceiveCommandLThenDirectionEast() {
-        rover = new Rover(x, y, SOUTH);
-
-        rover.receiveCommand("L");
-
-        assertThat(rover.direction()).isEqualTo(EAST);
-    }
-
-    @Test
-    public void givenDirectionSouthWhenReceiveCommandRThenDirectionWest() {
-        rover = new Rover(x, y, SOUTH);
+    public void whenReceiveCommandRThenDirectionRight() {
+        Direction expected = direction.right();
 
         rover.receiveCommand("R");
 
-        assertThat(rover.direction()).isEqualTo(WEST);
-    }
-
-    @Test
-    public void givenDirectionWestWhenReceiveCommandRThenDirectionNorth() {
-        rover = new Rover(x, y, WEST);
-
-        rover.receiveCommand("R");
-
-        assertThat(rover.direction()).isEqualTo(NORTH);
-    }
-
-    @Test
-    public void givenDirectionNorthReceiveCommandRThenDirectionEast() {
-        rover = new Rover(x, y, NORTH);
-
-        rover.receiveCommand("R");
-
-        assertThat(rover.direction()).isEqualTo(EAST);
-    }
-
-    @Test
-    public void givenDirectionEastReceiveCommandRThenDirectionSouth() {
-        rover = new Rover(x, y, EAST);
-
-        rover.receiveCommand("R");
-
-        assertThat(rover.direction()).isEqualTo(SOUTH);
+        assertThat(rover.direction()).isEqualTo(expected);
     }
 
     @Test
