@@ -3,7 +3,6 @@ package org.rover.kata;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public final class Location {
     private Direction direction;

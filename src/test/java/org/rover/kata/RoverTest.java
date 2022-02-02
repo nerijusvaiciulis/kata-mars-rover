@@ -31,6 +31,13 @@ public class RoverTest {
     }
 
     @Test
+    void whenRoverIsInitializedThenLocationIsSet() {
+        Rover rover = new Rover(x, y, direction);
+
+        assertThat(rover.location()).isEqualTo(location);
+    }
+
+    @Test
     public void whenReceiveCommandFThenForward() {
         Location expected = location.copy();
         expected.forward();
