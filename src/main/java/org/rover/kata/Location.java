@@ -1,7 +1,6 @@
 package org.rover.kata;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @EqualsAndHashCode
 public final class Location {
