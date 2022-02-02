@@ -32,22 +32,10 @@ public final class Rover {
                 y -= 1;
             } else if (SOUTH == direction && 'B' == command) {
                 y += 1;
-            } else if (EAST == direction && 'L' == command) {
-                direction = NORTH;
-            } else if (NORTH == direction && 'L' == command) {
-                direction = WEST;
-            } else if (WEST == direction && 'L' == command) {
-                direction = SOUTH;
-            } else if (SOUTH == direction && 'L' == command) {
-                direction = EAST;
-            } else if (SOUTH == direction && 'R' == command) {
-                direction = WEST;
-            } else if (WEST == direction && 'R' == command) {
-                direction = NORTH;
-            } else if (NORTH == direction && 'R' == command) {
-                direction = EAST;
-            } else if (EAST == direction && 'R' == command) {
-                direction = SOUTH;
+            } else if ('L' == command) {
+                direction = direction.left();
+            } else if ('R' == command) {
+                direction = direction.right();
             }
         }
         return String.format("(%d, %d) %s", x, y, direction);
