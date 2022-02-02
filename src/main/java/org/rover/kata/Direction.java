@@ -1,49 +1,24 @@
 package org.rover.kata;
 
 public enum Direction {
-    NORTH {
-        @Override
-        public Direction left() {
-            return WEST;
-        }
+    NORTH(0),
+    EAST(1),
+    SOUTH(2),
+    WEST(3);
 
-        @Override
-        public Direction right() {
-            return EAST;
-        }
-    }, SOUTH {
-        @Override
-        public Direction left() {
-            return EAST;
-        }
+    int value;
 
-        @Override
-        public Direction right() {
-            return WEST;
-        }
-    }, WEST {
-        @Override
-        public Direction left() {
-            return SOUTH;
-        }
+    Direction(int i) {
+        this.value = i;
+    }
 
-        @Override
-        public Direction right() {
-            return NORTH;
-        }
-    }, EAST {
-        @Override
-        public Direction left() {
-            return NORTH;
-        }
+    public Direction left() {
+        int index = (value + 3) % 4;
+        return Direction.values()[index];
+    }
 
-        @Override
-        public Direction right() {
-            return SOUTH;
-        }
-    };
-
-    public abstract Direction left();
-
-    public abstract Direction right();
+    public Direction right(){
+        int index = (value + 1) % 4;
+        return Direction.values()[index];
+    }
 }
