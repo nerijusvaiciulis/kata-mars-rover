@@ -13,17 +13,21 @@ public final class Rover {
 
     public String receiveCommand(String commands) {
         for (char command : commands.toCharArray()) {
-            if ('F' == command) {
-                location.forward();
-            } else if ('B' == command) {
-                location.backward();
-            } else if ('L' == command) {
-                location.left();
-            } else if ('R' == command) {
-                location.right();
-            }
+            execute(command);
         }
         return String.format("(%d, %d) %s", location.x(), location.y(), location.direction());
+    }
+
+    private void execute(char command) {
+        if ('F' == command) {
+            location.forward();
+        } else if ('B' == command) {
+            location.backward();
+        } else if ('L' == command) {
+            location.left();
+        } else if ('R' == command) {
+            location.right();
+        }
     }
 
     public int x() {
