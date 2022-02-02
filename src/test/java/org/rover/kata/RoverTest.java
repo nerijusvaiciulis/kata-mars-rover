@@ -171,4 +171,11 @@ public class RoverTest {
 
         assertThat(rover.direction()).isEqualTo(SOUTH);
     }
+
+    @Test
+    public void whenReceiveMultipleCommandsThenExecuteAll() {
+        rover.receiveCommand("FF");
+
+        assertThat(rover.x()).isEqualTo(x + 2);
+    }
 }
