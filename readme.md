@@ -58,3 +58,15 @@ An example command might be FLFFFRFLB
 You should tackle this problem as you would any real world requirement that would be shipped as
 part of a real product. You should showcase how you work and the way you decompose a problem
 into smaller pieces.
+
+REQUIREMENTS TO RUN
+==================
+
+# PREREQUISITES
+`java 17`
+`maven 3`
+
+
+# RUN TESTS
+`mvn clean test`
+
