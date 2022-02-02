@@ -126,6 +126,24 @@ public class RoverTest {
     }
 
     @Test
+    public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
+        rover.receiveCommand("FLFLFLFL");
+
+        assertThat(rover.x()).as("x").isEqualTo(x);
+        assertThat(rover.y()).as("y").isEqualTo(y);
+        assertThat(rover.direction()).isEqualTo(direction);
+    }
+
+    @Test
+    public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
+        rover.receiveCommand("FRFRFRFR");
+
+        assertThat(rover.x()).as("x").isEqualTo(x);
+        assertThat(rover.y()).as("y").isEqualTo(y);
+        assertThat(rover.direction()).isEqualTo(direction);
+    }
+
+    @Test
     public void whenReceiveCommandThenReportCoordinatesAndDirection() {
         String report = rover.receiveCommand("F");
 
