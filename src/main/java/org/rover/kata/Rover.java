@@ -19,14 +19,11 @@ public final class Rover {
     }
 
     private void execute(char command) {
-        if ('F' == command) {
-            location.forward();
-        } else if ('B' == command) {
-            location.backward();
-        } else if ('L' == command) {
-            location.left();
-        } else if ('R' == command) {
-            location.right();
+        switch (command) {
+            case 'F' -> location.forward();
+            case 'B' -> location.backward();
+            case 'L' -> location.left();
+            case 'R' -> location.right();
         }
     }
 
