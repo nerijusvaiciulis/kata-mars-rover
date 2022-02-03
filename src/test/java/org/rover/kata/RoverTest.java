@@ -123,10 +123,10 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandThenReportLocation() {
-        Location expected = location.copy();
+        String expected = location.report();
 
         String report = rover.receiveCommand("");
 
-        assertThat(report).isEqualTo(expected.report());
+        assertThat(report).isEqualTo(expected);
     }
 }
