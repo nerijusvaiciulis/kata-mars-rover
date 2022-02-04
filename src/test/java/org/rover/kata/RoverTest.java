@@ -32,14 +32,14 @@ public class RoverTest {
 
     @Test
     void whenRoverIsInitializedThenLocationIsSet() {
-        Rover rover = new Rover(direction, new Coordinates(x, y));
+        var rover = new Rover(direction, new Coordinates(x, y));
 
         assertThat(rover.location()).isEqualTo(location);
     }
 
     @Test
     public void whenReceiveCommandFThenForward() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.forward();
 
         rover.receiveCommand("F");
@@ -49,7 +49,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandBThenBackward() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.backward();
 
         rover.receiveCommand("B");
@@ -59,7 +59,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandLThenLeft() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.left();
 
         rover.receiveCommand("L");
@@ -69,7 +69,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandRThenRight() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.right();
 
         rover.receiveCommand("R");
@@ -79,7 +79,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveMultipleCommandsThenExecuteAll() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.forward();
         expected.forward();
 
@@ -90,7 +90,7 @@ public class RoverTest {
 
     @Test
     public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.forward();
         expected.left();
         expected.forward();
@@ -107,7 +107,7 @@ public class RoverTest {
 
     @Test
     public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = location.copy();
+        var expected = location.copy();
         expected.forward();
         expected.right();
         expected.forward();
@@ -123,9 +123,9 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandThenReportLocation() {
-        String expected = location.report();
+        var expected = location.report();
 
-        String report = rover.receiveCommand("");
+        var report = rover.receiveCommand("");
 
         assertThat(report).isEqualTo(expected);
     }

@@ -30,12 +30,12 @@ public enum Direction {
     }
 
     public Direction left() {
-        int index = (value + 3) % 4;
+        var index = (value + 3) % 4;
         return Direction.values()[index];
     }
 
     public Direction right(){
-        int index = (value + 1) % 4;
+        var index = (value + 1) % 4;
         return Direction.values()[index];
     }
 }
