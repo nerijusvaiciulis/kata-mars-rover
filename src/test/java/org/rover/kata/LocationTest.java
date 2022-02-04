@@ -1,6 +1,5 @@
 package org.rover.kata;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,105 +7,41 @@ import static org.rover.kata.Direction.*;
 
 public class LocationTest {
 
-    private final int x = 1;
-    private final int y = 2;
-    private final Direction direction = Direction.EAST;
-    private Location location;
-
-    @BeforeEach
-    void setUp() {
-        location = new Location(x, y, direction);
-    }
+    private static final Coordinates coordinates = new Coordinates(1, 2);
+    private static final Direction direction = Direction.EAST;
 
     @Test
-    public void whenInitializedThenXIsSet() {
-        assertThat(location.x()).isEqualTo(x);
-    }
-
-    @Test
-    public void whenInitializedThenYIsSet() {
-        assertThat(location.y()).isEqualTo(y);
+    public void whenInitializedThenCoordinatesIsSet() {
+        assertThat(createLocation().coordinates()).isEqualTo(coordinates);
     }
 
     @Test
     public void whenInitializedThenDirectionIsSet() {
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(createLocation().direction()).isEqualTo(direction);
     }
 
     @Test
-    public void givenEastWhenForwardThenXIncrease() {
-        location = new Location(x, y, EAST);
-
-        location.forward();
-
-        assertThat(location.x()).isEqualTo(x + 1);
-    }
-
-    @Test
-    public void givenEastWhenBackwardThenXDecrease() {
-        location = new Location(x, y, EAST);
-
-        location.backward();
-
-        assertThat(location.x()).isEqualTo(x - 1);
-    }
-
-    @Test
-    public void givenNorthWhenForwardThenYIncrease() {
-        location = new Location(x, y, NORTH);
-
-        location.forward();
-
-        assertThat(location.y()).isEqualTo(y + 1);
-    }
-
-    @Test
-    public void givenNorthWhenBackwardThenYDecrease() {
-        location = new Location(x, y, NORTH);
-
-        location.backward();
-
-        assertThat(location.y()).isEqualTo(y - 1);
-    }
-
-    @Test
-    public void givenWestWhenForwardThenXDecrease() {
-        location = new Location(x, y, WEST);
-
-        location.forward();
-
-        assertThat(location.x()).isEqualTo(x - 1);
-    }
-
-    @Test
-    public void givenWestWhenBackwardThenXIncrease() {
-        location = new Location(x, y, WEST);
-
-        location.backward();
-
-        assertThat(location.x()).isEqualTo(x + 1);
-    }
-
-    @Test
-    public void givenSouthWhenForwardThenYDecrease() {
-        location = new Location(x, y, SOUTH);
-
-        location.forward();
-
-        assertThat(location.y()).isEqualTo(y - 1);
-    }
-
-    @Test
-    public void givenSouthWhenBackwardThenYIncrease() {
-        location = new Location(x, y, SOUTH);
-
-        location.backward();
-
-        assertThat(location.y()).isEqualTo(y + 1);
+    public void givenMovingToDirectionThenChangesCoordinates() {
+        verify(createLocation().copyWith(SOUTH).backward(), coordinates.copyWithAddition(0, 1));
+        verify(createLocation().copyWith(SOUTH).forward(), coordinates.copyWithAddition(0, -1));
+        verify(createLocation().copyWith(WEST).backward(), coordinates.copyWithAddition(1, 0));
+        verify(createLocation().copyWith(WEST).forward(), coordinates.copyWithAddition(-1, 0));
+        verify(createLocation().copyWith(NORTH).backward(), coordinates.copyWithAddition(0, -1));
+        verify(createLocation().copyWith(NORTH).forward(), coordinates.copyWithAddition(0, 1));
+        verify(createLocation().backward(), coordinates.copyWithAddition(-1, 0));
+        verify(createLocation().forward(), coordinates.copyWithAddition(1, 0));
     }
 
     @Test
     public void whenReportThenReturnFormattedText() {
-        assertThat(location.report()).isEqualTo("(1, 2) EAST");
+        assertThat(createLocation().report()).isEqualTo("(1, 2) EAST");
+    }
+
+    private static void verify(Location location, Coordinates coordinates) {
+        assertThat(location.coordinates()).isEqualTo(coordinates);
+    }
+
+    private static Location createLocation() {
+        return new Location(EAST, coordinates);
     }
 }

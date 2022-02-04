@@ -3,8 +3,8 @@ package org.rover.kata;
 public final class Rover {
     private final Location location;
 
-    public Rover(int x, int y, Direction direction) {
-        this(new Location(x, y, direction));
+    public Rover(Direction direction, Coordinates coordinates) {
+        this(new Location(direction, coordinates));
     }
 
     public Rover(Location location) {
@@ -28,11 +28,11 @@ public final class Rover {
     }
 
     public int x() {
-        return location.x();
+        return location.coordinates().x();
     }
 
     public int y() {
-        return location.y();
+        return location.coordinates().y();
     }
 
     public Direction direction() {

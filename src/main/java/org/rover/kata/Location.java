@@ -1,62 +1,37 @@
 package org.rover.kata;
 
-import lombok.EqualsAndHashCode;
+public record Location(Direction direction, Coordinates coordinates) {
 
-@EqualsAndHashCode
-public final class Location {
-    private Direction direction;
-    private int x;
-    private int y;
-
-    public Location(int x, int y, Direction direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+    public Location forward() {
+        return new Location(
+                direction,
+                coordinates.copyWithAddition(Direction.actionCoordinates.get(direction)));
     }
 
-    public int x() {
-        return x;
+    public Location backward() {
+        return new Location(
+                direction,
+                coordinates.copyWithAddition(Direction.reverseActionCoordinates.get(direction))
+        );
     }
 
-    public int y() {
-        return y;
+    public Location left() {
+        return copyWith(direction.left());
     }
 
-    public Direction direction() {
-        return direction;
-    }
-
-    public void forward() {
-        switch (direction) {
-            case EAST -> x += 1;
-            case NORTH -> y += 1;
-            case WEST -> x -= 1;
-            case SOUTH -> y -= 1;
-        }
-    }
-
-    public void backward() {
-        switch (direction) {
-            case EAST -> x -= 1;
-            case NORTH -> y -= 1;
-            case WEST -> x += 1;
-            case SOUTH -> y += 1;
-        }
-    }
-
-    public void left() {
-        direction = direction.left();
-    }
-
-    public void right() {
-        direction = direction.right();
+    public Location right() {
+        return copyWith(direction.right());
     }
 
     String report() {
-        return String.format("(%d, %d) %s", x(), y(), direction());
+        return String.format("(%d, %d) %s", coordinates.x(), coordinates.y(), direction());
     }
 
-    public Location copy() {
-        return new Location(x, y, direction);
+    Location copy() {
+        return new Location(direction, coordinates);
+    }
+
+    Location copyWith(Direction direction) {
+        return new Location(direction, coordinates);
     }
 }

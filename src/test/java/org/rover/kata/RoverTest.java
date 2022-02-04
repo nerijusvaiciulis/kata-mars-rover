@@ -10,7 +10,7 @@ public class RoverTest {
     private final Direction direction = Direction.EAST;
     private final int x = 4;
     private final int y = 2;
-    private final Location location = new Location(x, y, direction);
+    private final Location location = new Location(direction, new Coordinates(x, y));
     private Rover rover;
 
     @BeforeEach
@@ -32,7 +32,7 @@ public class RoverTest {
 
     @Test
     void whenRoverIsInitializedThenLocationIsSet() {
-        Rover rover = new Rover(x, y, direction);
+        Rover rover = new Rover(direction, new Coordinates(x, y));
 
         assertThat(rover.location()).isEqualTo(location);
     }
