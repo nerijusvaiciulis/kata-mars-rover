@@ -3,16 +3,11 @@ package org.rover.kata;
 public record Location(Direction direction, Coordinates coordinates) {
 
     public Location forward() {
-        return new Location(
-                direction,
-                coordinates.copyWithAddition(Direction.actionCoordinates.get(direction)));
+        return copyWith(coordinates.copyWithAddition(Direction.actionCoordinates.get(direction)));
     }
 
     public Location backward() {
-        return new Location(
-                direction,
-                coordinates.copyWithAddition(Direction.reverseActionCoordinates.get(direction))
-        );
+        return copyWith(coordinates.copyWithAddition(Direction.reverseActionCoordinates.get(direction)));
     }
 
     public Location left() {
@@ -32,6 +27,10 @@ public record Location(Direction direction, Coordinates coordinates) {
     }
 
     Location copyWith(Direction direction) {
+        return new Location(direction, coordinates);
+    }
+
+    Location copyWith(Coordinates coordinates) {
         return new Location(direction, coordinates);
     }
 }
