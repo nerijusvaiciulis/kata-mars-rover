@@ -1,14 +1,13 @@
 package org.rover.kata;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public final class Rover {
     private final Location location;
 
     public Rover(int x, int y, Direction direction) {
         this(new Location(x, y, direction));
-    }
-
-    public Rover(Location location) {
-        this.location = location;
     }
 
     public String receiveCommand(String commands) {
