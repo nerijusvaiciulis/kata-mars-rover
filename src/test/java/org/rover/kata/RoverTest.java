@@ -9,11 +9,15 @@ public class RoverTest {
     private final Direction direction = Direction.EAST;
     private final int x = 4;
     private final int y = 2;
-    private final Location location = new Location(x, y, direction);
+    private Location location;
+    private Location expectedLocation;
     private Rover rover;
 
     @BeforeEach
     void setUp() {
+        location = new Location(x, y, direction);
+        expectedLocation = new Location(x, y, direction);
+
         rover = new Rover(location);
     }
 
@@ -33,91 +37,84 @@ public class RoverTest {
     public void whenRoverIsInitializedThenLocationIsSet() {
         var rover = new Rover(x, y, direction);
 
-        assertThat(rover.location()).isEqualTo(location);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenReceiveCommandFThenForward() {
-        Location expected = location.copy();
-        expected.forward();
+        expectedLocation.forward();
 
         rover.receiveCommand("F");
 
-        assertThat(location).isEqualTo(expected);
+        assertThat(location).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenReceiveCommandBThenBackward() {
-        Location expected = location.copy();
-        expected.backward();
+        expectedLocation.backward();
 
         rover.receiveCommand("B");
 
-        assertThat(location).isEqualTo(expected);
+        assertThat(location).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenReceiveCommandLThenLeft() {
-        Location expected = location.copy();
-        expected.left();
+        expectedLocation.left();
 
         rover.receiveCommand("L");
 
-        assertThat(rover.location()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenReceiveCommandRThenRight() {
-        Location expected = location.copy();
-        expected.right();
+        expectedLocation.right();
 
         rover.receiveCommand("R");
 
-        assertThat(rover.location()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenReceiveMultipleCommandsThenExecuteAll() {
-        Location expected = location.copy();
-        expected.forward();
-        expected.forward();
+        expectedLocation.forward();
+        expectedLocation.forward();
 
         rover.receiveCommand("FF");
 
-        assertThat(rover.location()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = location.copy();
-        expected.forward();
-        expected.left();
-        expected.forward();
-        expected.left();
-        expected.forward();
-        expected.left();
-        expected.forward();
-        expected.left();
+        expectedLocation.forward();
+        expectedLocation.left();
+        expectedLocation.forward();
+        expectedLocation.left();
+        expectedLocation.forward();
+        expectedLocation.left();
+        expectedLocation.forward();
+        expectedLocation.left();
 
         rover.receiveCommand("FLFLFLFL");
 
-        assertThat(rover.location()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
     public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = location.copy();
-        expected.forward();
-        expected.right();
-        expected.forward();
-        expected.right();
-        expected.forward();
-        expected.right();
-        expected.forward();
-        expected.right();
+        expectedLocation.forward();
+        expectedLocation.right();
+        expectedLocation.forward();
+        expectedLocation.right();
+        expectedLocation.forward();
+        expectedLocation.right();
+        expectedLocation.forward();
+        expectedLocation.right();
         rover.receiveCommand("FRFRFRFR");
 
-        assertThat(rover.location()).isEqualTo(expected);
+        assertThat(rover.location()).isEqualTo(expectedLocation);
     }
 
     @Test
