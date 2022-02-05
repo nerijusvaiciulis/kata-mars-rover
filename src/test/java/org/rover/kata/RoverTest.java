@@ -38,7 +38,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandFThenForward() {
-        Location expected = START_LOCATION.forward();
+        var expected = START_LOCATION.forward();
 
         rover.receiveCommand("F");
 
@@ -47,7 +47,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandBThenBackward() {
-        Location expected = START_LOCATION.backward();
+        var expected = START_LOCATION.backward();
 
         rover.receiveCommand("B");
 
@@ -56,7 +56,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandLThenLeft() {
-        Location expected = START_LOCATION.left();
+        var expected = START_LOCATION.left();
 
         rover.receiveCommand("L");
 
@@ -65,7 +65,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandRThenRight() {
-        Location expected = START_LOCATION.right();
+        var expected = START_LOCATION.right();
 
         rover.receiveCommand("R");
 
@@ -74,7 +74,7 @@ public class RoverTest {
 
     @Test
     public void whenReceiveMultipleCommandsThenExecuteAll() {
-        Location expected = START_LOCATION.forward().forward();
+        var expected = START_LOCATION.forward().forward();
 
         rover.receiveCommand("FF");
 
@@ -83,7 +83,7 @@ public class RoverTest {
 
     @Test
     public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = START_LOCATION.forward().left().forward().left().forward().left().forward().left();
+        var expected = START_LOCATION.forward().left().forward().left().forward().left().forward().left();
 
         rover.receiveCommand("FLFLFLFL");
 
@@ -92,7 +92,7 @@ public class RoverTest {
 
     @Test
     public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
-        Location expected = START_LOCATION.forward().right().forward().right().forward().right().forward().right();
+        var expected = START_LOCATION.forward().right().forward().right().forward().right().forward().right();
 
         rover.receiveCommand("FRFRFRFR");
 
@@ -101,9 +101,9 @@ public class RoverTest {
 
     @Test
     public void whenReceiveCommandThenReportLocation() {
-        String expected = START_LOCATION.report();
+        var expected = START_LOCATION.report();
 
-        String report = rover.receiveCommand("");
+        var report = rover.receiveCommand("");
 
         assertThat(report).isEqualTo(expected);
     }

@@ -7,12 +7,12 @@ public enum Direction {
     WEST;
 
     public Direction left() {
-        int index = (ordinal() + 3) % 4;
+        var index = (ordinal() + 3) % 4;
         return Direction.values()[index];
     }
 
     public Direction right(){
-        int index = (ordinal() + 1) % 4;
+        var index = (ordinal() + 1) % 4;
         return Direction.values()[index];
     }
 }
