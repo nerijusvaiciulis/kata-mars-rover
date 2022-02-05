@@ -1,30 +1,10 @@
 package org.rover.kata;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.With;
-
-@EqualsAndHashCode
-@AllArgsConstructor
-@ToString
+// In IntelliJ methods withX withY withDirection as error. They but they work as expected.
+// Intellij lombok plugin need update to notice, that @With works with record also
 @With
-public final class Location {
-    private final int x;
-    private final int y;
-    private final Direction direction;
-
-    public int x() {
-        return x;
-    }
-
-    public int y() {
-        return y;
-    }
-
-    public Direction direction() {
-        return direction;
-    }
+public record Location(int x, int y, Direction direction) {
 
     public Location forward() {
         return switch (direction) {
