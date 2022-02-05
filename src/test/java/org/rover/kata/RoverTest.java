@@ -30,7 +30,7 @@ public class RoverTest {
     }
 
     @Test
-    void whenRoverIsInitializedThenLocationIsSet() {
+    public void whenRoverIsInitializedThenLocationIsSet() {
         Rover rover = new Rover(x, y, direction);
 
         assertThat(rover.location()).isEqualTo(location);
