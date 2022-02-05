@@ -2,9 +2,11 @@ package org.rover.kata;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.With;
 
 @EqualsAndHashCode
 @AllArgsConstructor
+@With
 public final class Location {
     private final int x;
     private final int y;
@@ -24,28 +26,28 @@ public final class Location {
 
     public Location forward() {
         return switch (direction) {
-            case EAST -> new Location(x + 1, y, direction);
-            case NORTH -> new Location(x, y + 1, direction);
-            case WEST -> new Location(x - 1, y, direction);
-            case SOUTH -> new Location(x, y - 1, direction);
+            case EAST -> withX(x + 1);
+            case NORTH -> withY(y + 1);
+            case WEST -> withX(x - 1);
+            case SOUTH -> withY(y - 1);
         };
     }
 
     public Location backward() {
         return switch (direction) {
-            case EAST -> new Location(x - 1, y, direction);
-            case NORTH -> new Location(x, y - 1, direction);
-            case WEST -> new Location(x + 1, y, direction);
-            case SOUTH -> new Location(x, y + 1, direction);
+            case EAST -> withX(x - 1);
+            case NORTH -> withY(y - 1);
+            case WEST -> withX(x + 1);
+            case SOUTH -> withY(y + 1);
         };
     }
 
     public Location left() {
-        return new Location(x, y, direction.left());
+        return withDirection(direction.left());
     }
 
     public Location right() {
-        return new Location(x, y, direction.right());
+        return withDirection(direction.right());
     }
 
     String report() {
