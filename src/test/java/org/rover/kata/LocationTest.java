@@ -35,74 +35,98 @@ public class LocationTest {
 
     @Test
     public void givenEastWhenForwardThenXIncrease() {
-        location = new Location(x, y, EAST);
+        Direction direction = EAST;
+        location = new Location(x, y, direction);
 
         location.forward();
 
         assertThat(location.x()).isEqualTo(x + 1);
+        assertThat(location.y()).isEqualTo(y);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenEastWhenBackwardThenXDecrease() {
-        location = new Location(x, y, EAST);
+        Direction direction = EAST;
+        location = new Location(x, y, direction);
 
         location.backward();
 
         assertThat(location.x()).isEqualTo(x - 1);
+        assertThat(location.y()).isEqualTo(y);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenNorthWhenForwardThenYIncrease() {
-        location = new Location(x, y, NORTH);
+        Direction direction = NORTH;
+        location = new Location(x, y, direction);
 
         location.forward();
 
         assertThat(location.y()).isEqualTo(y + 1);
+        assertThat(location.x()).isEqualTo(x);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenNorthWhenBackwardThenYDecrease() {
-        location = new Location(x, y, NORTH);
+        Direction direction = NORTH;
+        location = new Location(x, y, direction);
 
         location.backward();
 
         assertThat(location.y()).isEqualTo(y - 1);
+        assertThat(location.x()).isEqualTo(x);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenWestWhenForwardThenXDecrease() {
-        location = new Location(x, y, WEST);
+        Direction direction = WEST;
+        location = new Location(x, y, direction);
 
         location.forward();
 
         assertThat(location.x()).isEqualTo(x - 1);
+        assertThat(location.y()).isEqualTo(y);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenWestWhenBackwardThenXIncrease() {
-        location = new Location(x, y, WEST);
+        Direction direction = WEST;
+        location = new Location(x, y, direction);
 
         location.backward();
 
         assertThat(location.x()).isEqualTo(x + 1);
+        assertThat(location.y()).isEqualTo(y);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenSouthWhenForwardThenYDecrease() {
-        location = new Location(x, y, SOUTH);
+        Direction direction = SOUTH;
+        location = new Location(x, y, direction);
 
         location.forward();
 
         assertThat(location.y()).isEqualTo(y - 1);
+        assertThat(location.x()).isEqualTo(x);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
     public void givenSouthWhenBackwardThenYIncrease() {
-        location = new Location(x, y, SOUTH);
+        Direction direction = SOUTH;
+        location = new Location(x, y, direction);
 
         location.backward();
 
         assertThat(location.y()).isEqualTo(y + 1);
+        assertThat(location.x()).isEqualTo(x);
+        assertThat(location.direction()).isEqualTo(direction);
     }
 
     @Test
