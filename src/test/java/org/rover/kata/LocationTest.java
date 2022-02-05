@@ -7,179 +7,124 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.rover.kata.Direction.*;
 
 public class LocationTest {
-    private final int x = 1;
-    private final int y = 2;
-    private final Direction direction = Direction.EAST;
-    private Location location;
+    private static final int START_COORDINATE_X = 1;
+    private static final int START_COORDINATE_Y = 2;
+    private static final Direction START_DIRECTION = Direction.EAST;
 
-    @BeforeEach
-    void setUp() {
-        location = new Location(x, y, direction);
+    private static Location createLocation() {
+        return new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION);
     }
 
     @Test
     public void whenInitializedThenXIsSet() {
-        assertThat(location.x()).isEqualTo(x);
+        assertThat(createLocation().x()).isEqualTo(START_COORDINATE_X);
     }
 
     @Test
     public void whenInitializedThenYIsSet() {
-        assertThat(location.y()).isEqualTo(y);
+        assertThat(createLocation().y()).isEqualTo(START_COORDINATE_Y);
+    }
+
+    @Test
+    public void givenLocationWhenWithXThenReturnNewLocationWithOnlyXChanged() {
+        int expected = 111;
+        Location location = createLocation().withX(expected);
+
+        assertThat(location.x()).isEqualTo(expected);
+        assertThat(location.y()).isEqualTo(START_COORDINATE_Y);
+        assertThat(location.direction()).isEqualTo(START_DIRECTION);
+    }
+
+    @Test
+    public void givenLocationWhenWithYThenReturnNewLocationWithOnlyYChanged() {
+        int expected = 111;
+        Location location = createLocation().withY(expected);
+
+        assertThat(location.x()).isEqualTo(START_COORDINATE_X);
+        assertThat(location.y()).isEqualTo(expected);
+        assertThat(location.direction()).isEqualTo(START_DIRECTION);
+    }
+
+    @Test
+    public void givenLocationWhenWithDirectionThenReturnNewLocationWithOnlyDirectionChanged() {
+        Direction expected = SOUTH;
+        Location location = createLocation(expected);
+
+        assertThat(location.x()).isEqualTo(START_COORDINATE_X);
+        assertThat(location.y()).isEqualTo(START_COORDINATE_Y);
+        assertThat(location.direction()).isEqualTo(expected);
     }
 
     @Test
     public void whenInitializedThenDirectionIsSet() {
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(createLocation().direction()).isEqualTo(START_DIRECTION);
     }
 
     @Test
-    public void givenEastWhenForwardThenXIncrease() {
-        Direction direction = EAST;
-        location = new Location(x, y, direction);
+    public void whenMovingToDirectionThenCoordinateChange() {
+        assertThat(createLocation(EAST).forward()).isEqualTo(createLocation(EAST).withX(START_COORDINATE_X + 1));
+        assertThat(createLocation(WEST).forward()).isEqualTo(createLocation(WEST).withX(START_COORDINATE_X - 1));
+        assertThat(createLocation(NORTH).forward()).isEqualTo(createLocation(NORTH).withY(START_COORDINATE_Y + 1));
+        assertThat(createLocation(SOUTH).forward()).isEqualTo(createLocation(SOUTH).withY(START_COORDINATE_Y - 1));
 
-        Location actualLocation = location.forward();
-
-        assertThat(actualLocation.x()).isEqualTo(x + 1);
-        assertThat(actualLocation.y()).isEqualTo(y);
-        assertThat(actualLocation.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenEastWhenBackwardThenXDecrease() {
-        Direction direction = EAST;
-        location = new Location(x, y, direction);
-
-        Location backward = location.backward();
-
-        assertThat(backward.x()).isEqualTo(x - 1);
-        assertThat(backward.y()).isEqualTo(y);
-        assertThat(backward.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenNorthWhenForwardThenYIncrease() {
-        Direction direction = NORTH;
-        location = new Location(x, y, direction);
-
-        Location actualLocation = location.forward();
-
-        assertThat(actualLocation.y()).isEqualTo(y + 1);
-        assertThat(actualLocation.x()).isEqualTo(x);
-        assertThat(actualLocation.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenNorthWhenBackwardThenYDecrease() {
-        Direction direction = NORTH;
-        location = new Location(x, y, direction);
-
-        Location backward = location.backward();
-
-        assertThat(backward.y()).isEqualTo(y - 1);
-        assertThat(backward.x()).isEqualTo(x);
-        assertThat(backward.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenWestWhenForwardThenXDecrease() {
-        Direction direction = WEST;
-        location = new Location(x, y, direction);
-
-        Location actualLocation = location.forward();
-
-        assertThat(actualLocation.x()).isEqualTo(x - 1);
-        assertThat(actualLocation.y()).isEqualTo(y);
-        assertThat(actualLocation.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenWestWhenBackwardThenXIncrease() {
-        Direction direction = WEST;
-        location = new Location(x, y, direction);
-
-        Location backward = location.backward();
-
-        assertThat(backward.x()).isEqualTo(x + 1);
-        assertThat(backward.y()).isEqualTo(y);
-        assertThat(backward.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenSouthWhenForwardThenYDecrease() {
-        Direction direction = SOUTH;
-        location = new Location(x, y, direction);
-
-        Location actualLocation = location.forward();
-
-        assertThat(actualLocation.y()).isEqualTo(y - 1);
-        assertThat(actualLocation.x()).isEqualTo(x);
-        assertThat(actualLocation.direction()).isEqualTo(direction);
-    }
-
-    @Test
-    public void givenSouthWhenBackwardThenYIncrease() {
-        Direction direction = SOUTH;
-        location = new Location(x, y, direction);
-
-        Location backward = location.backward();
-
-        assertThat(backward.y()).isEqualTo(y + 1);
-        assertThat(backward.x()).isEqualTo(x);
-        assertThat(backward.direction()).isEqualTo(direction);
+        assertThat(createLocation(EAST).backward()).isEqualTo(createLocation(EAST).withX(START_COORDINATE_X - 1));
+        assertThat(createLocation(WEST).backward()).isEqualTo(createLocation(WEST).withX(START_COORDINATE_X + 1));
+        assertThat(createLocation(NORTH).backward()).isEqualTo(createLocation(NORTH).withY(START_COORDINATE_Y - 1));
+        assertThat(createLocation(SOUTH).backward()).isEqualTo(createLocation(SOUTH).withY(START_COORDINATE_Y + 1));
     }
 
     @Test
     public void whenReportThenReturnFormattedText() {
-        assertThat(location.report()).isEqualTo("(1, 2) EAST");
+        assertThat(createLocation().report()).isEqualTo("(1, 2) EAST");
     }
 
     @Test
     public void whenForwardThenOriginalLocationNotChanged() {
-        Location expected = new Location(location.x(), location.y(), location.direction());
+        Location location = createLocation();
 
         location.forward();
 
-        assertThat(location).isEqualTo(expected);
+        assertThat(location).isEqualTo(createLocation());
     }
 
     @Test
     public void whenBackwardThenOriginalLocationNotChanged() {
-        Location expected = new Location(location.x(), location.y(), location.direction());
+        Location location = createLocation();
 
         location.backward();
 
-        assertThat(location).isEqualTo(expected);
+        assertThat(location).isEqualTo(createLocation());
     }
 
     @Test
     public void whenLeftThenOriginalLocationNotChanged() {
-        Location expected = new Location(location.x(), location.y(), location.direction());
+        Location location = createLocation();
 
         location.left();
 
-        assertThat(location).isEqualTo(expected);
-    }
-
-    @Test
-    public void whenLeftThenDirectionLeft() {
-        Location left = location.left();
-
-        assertThat(left.direction()).isEqualTo(direction.left());
+        assertThat(location).isEqualTo(createLocation());
     }
 
     @Test
     public void whenRightThenOriginalLocationNotChanged() {
-        Location expected = new Location(location.x(), location.y(), location.direction());
+        Location location = createLocation();
 
         location.right();
 
-        assertThat(location).isEqualTo(expected);
+        assertThat(location).isEqualTo(createLocation());
+    }
+
+    @Test
+    public void whenLeftThenDirectionLeft() {
+        assertThat(createLocation().left()).isEqualTo(createLocation().withDirection(START_DIRECTION.left()));
     }
 
     @Test
     public void whenRightThenDirectionRight() {
-        Location right = location.right();
+        assertThat(createLocation().right()).isEqualTo(createLocation().withDirection(START_DIRECTION.right()));
+    }
 
-        assertThat(right.direction()).isEqualTo(direction.right());
+    private Location createLocation(Direction direction) {
+        return createLocation().withDirection(direction);
     }
 }

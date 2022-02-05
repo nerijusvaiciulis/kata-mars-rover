@@ -1,9 +1,5 @@
 package org.rover.kata;
 
-import lombok.With;
-// In IntelliJ methods withX withY withDirection as error. They but they work as expected.
-// Intellij lombok plugin need update to notice, that @With works with record also
-@With
 public record Location(int x, int y, Direction direction) {
 
     public Location forward() {
@@ -34,5 +30,17 @@ public record Location(int x, int y, Direction direction) {
 
     String report() {
         return String.format("(%d, %d) %s", x(), y(), direction());
+    }
+
+    public Location withX(int newX) {
+        return new Location(newX, y, direction);
+    }
+
+    public Location withY(int newY) {
+        return new Location(x, newY, direction);
+    }
+
+    public Location withDirection(Direction newDirection) {
+        return new Location(x, y, newDirection);
     }
 }
