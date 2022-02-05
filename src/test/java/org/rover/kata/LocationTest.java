@@ -26,6 +26,28 @@ public class LocationTest {
     }
 
     @Test
+    public void whenInitializedThenDirectionIsSet() {
+        assertThat(createLocation().direction()).isEqualTo(START_DIRECTION);
+    }
+
+    @Test
+    public void whenActionThenLocationImmutable() {
+        Location location = createLocation();
+
+        location.forward();
+        assertThat(location).isEqualTo(createLocation());
+
+        location.backward();
+        assertThat(location).isEqualTo(createLocation());
+
+        location.left();
+        assertThat(location).isEqualTo(createLocation());
+
+        location.right();
+        assertThat(location).isEqualTo(createLocation());
+    }
+
+    @Test
     public void givenLocationWhenWithXThenReturnNewLocationWithOnlyXChanged() {
         int expected = 111;
         Location location = createLocation().withX(expected);
@@ -48,16 +70,11 @@ public class LocationTest {
     @Test
     public void givenLocationWhenWithDirectionThenReturnNewLocationWithOnlyDirectionChanged() {
         Direction expected = SOUTH;
-        Location location = createLocation(expected);
+        Location location = createLocation().withDirection(expected);
 
         assertThat(location.x()).isEqualTo(START_COORDINATE_X);
         assertThat(location.y()).isEqualTo(START_COORDINATE_Y);
         assertThat(location.direction()).isEqualTo(expected);
-    }
-
-    @Test
-    public void whenInitializedThenDirectionIsSet() {
-        assertThat(createLocation().direction()).isEqualTo(START_DIRECTION);
     }
 
     @Test
@@ -74,54 +91,14 @@ public class LocationTest {
     }
 
     @Test
+    public void whenTurnThenDirectionChange() {
+        assertThat(createLocation().left()).isEqualTo(createLocation().withDirection(START_DIRECTION.left()));
+        assertThat(createLocation().right()).isEqualTo(createLocation().withDirection(START_DIRECTION.right()));
+    }
+
+    @Test
     public void whenReportThenReturnFormattedText() {
         assertThat(createLocation().report()).isEqualTo("(1, 2) EAST");
-    }
-
-    @Test
-    public void whenForwardThenOriginalLocationNotChanged() {
-        Location location = createLocation();
-
-        location.forward();
-
-        assertThat(location).isEqualTo(createLocation());
-    }
-
-    @Test
-    public void whenBackwardThenOriginalLocationNotChanged() {
-        Location location = createLocation();
-
-        location.backward();
-
-        assertThat(location).isEqualTo(createLocation());
-    }
-
-    @Test
-    public void whenLeftThenOriginalLocationNotChanged() {
-        Location location = createLocation();
-
-        location.left();
-
-        assertThat(location).isEqualTo(createLocation());
-    }
-
-    @Test
-    public void whenRightThenOriginalLocationNotChanged() {
-        Location location = createLocation();
-
-        location.right();
-
-        assertThat(location).isEqualTo(createLocation());
-    }
-
-    @Test
-    public void whenLeftThenDirectionLeft() {
-        assertThat(createLocation().left()).isEqualTo(createLocation().withDirection(START_DIRECTION.left()));
-    }
-
-    @Test
-    public void whenRightThenDirectionRight() {
-        assertThat(createLocation().right()).isEqualTo(createLocation().withDirection(START_DIRECTION.right()));
     }
 
     private Location createLocation(Direction direction) {
