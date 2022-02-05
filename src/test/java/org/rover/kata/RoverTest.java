@@ -31,7 +31,7 @@ public class RoverTest {
 
     @Test
     public void whenRoverIsInitializedThenLocationIsSet() {
-        Rover rover = new Rover(x, y, direction);
+        var rover = new Rover(x, y, direction);
 
         assertThat(rover.location()).isEqualTo(location);
     }
