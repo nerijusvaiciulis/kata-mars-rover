@@ -1,18 +1,14 @@
 package org.rover.kata;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
+@AllArgsConstructor
 public final class Location {
-    private Direction direction;
     private int x;
     private int y;
-
-    public Location(int x, int y, Direction direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-    }
+    private Direction direction;
 
     public int x() {
         return x;
