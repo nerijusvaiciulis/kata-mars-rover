@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoverTest {
-
     private final Direction direction = Direction.EAST;
     private final int x = 4;
     private final int y = 2;

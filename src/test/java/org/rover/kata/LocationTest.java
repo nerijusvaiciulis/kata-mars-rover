@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.rover.kata.Direction.*;
 
 public class LocationTest {
-
     private final int x = 1;
     private final int y = 2;
     private final Direction direction = Direction.EAST;
