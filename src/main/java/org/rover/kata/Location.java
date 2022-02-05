@@ -2,10 +2,12 @@ package org.rover.kata;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.With;
 
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 @With
 public final class Location {
     private final int x;

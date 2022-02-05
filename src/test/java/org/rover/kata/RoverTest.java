@@ -6,19 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoverTest {
-    private final Direction START_DIRECTION = Direction.EAST;
     private final int START_COORDINATE_X = 4;
     private final int START_COORDINATE_Y = 2;
-    private Location location;
-    private Location expectedLocation;
+    private final Direction START_DIRECTION = Direction.EAST;
+    private final Location START_LOCATION = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION);
     private Rover rover;
 
     @BeforeEach
     void setUp() {
-        location = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION);
-        expectedLocation = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION);
-
-        rover = new Rover(location);
+        rover = new Rover(START_LOCATION);
     }
 
     @Test
@@ -37,89 +33,75 @@ public class RoverTest {
     public void whenRoverIsInitializedThenLocationIsSet() {
         var rover = new Rover(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION);
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(START_LOCATION);
     }
 
     @Test
     public void whenReceiveCommandFThenForward() {
-        expectedLocation.forward();
+        Location expected = START_LOCATION.forward();
 
         rover.receiveCommand("F");
 
-        assertThat(location).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveCommandBThenBackward() {
-        expectedLocation.backward();
+        Location expected = START_LOCATION.backward();
 
         rover.receiveCommand("B");
 
-        assertThat(location).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveCommandLThenLeft() {
-        expectedLocation.left();
+        Location expected = START_LOCATION.left();
 
         rover.receiveCommand("L");
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveCommandRThenRight() {
-        expectedLocation.right();
+        Location expected = START_LOCATION.right();
 
         rover.receiveCommand("R");
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveMultipleCommandsThenExecuteAll() {
-        expectedLocation.forward();
-        expectedLocation.forward();
+        Location expected = START_LOCATION.forward().forward();
 
         rover.receiveCommand("FF");
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenMoveInLeftCircleThenKeepSameCoordinatesAndDirection() {
-        expectedLocation.forward();
-        expectedLocation.left();
-        expectedLocation.forward();
-        expectedLocation.left();
-        expectedLocation.forward();
-        expectedLocation.left();
-        expectedLocation.forward();
-        expectedLocation.left();
+        Location expected = START_LOCATION.forward().left().forward().left().forward().left().forward().left();
 
         rover.receiveCommand("FLFLFLFL");
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenMoveInRightCircleThenKeepSameCoordinatesAndDirection() {
-        expectedLocation.forward();
-        expectedLocation.right();
-        expectedLocation.forward();
-        expectedLocation.right();
-        expectedLocation.forward();
-        expectedLocation.right();
-        expectedLocation.forward();
-        expectedLocation.right();
+        Location expected = START_LOCATION.forward().right().forward().right().forward().right().forward().right();
+
         rover.receiveCommand("FRFRFRFR");
 
-        assertThat(rover.location()).isEqualTo(expectedLocation);
+        assertThat(rover.location()).isEqualTo(expected);
     }
 
     @Test
     public void whenReceiveCommandThenReportLocation() {
-        String expected = location.report();
+        String expected = START_LOCATION.report();
 
         String report = rover.receiveCommand("");
 

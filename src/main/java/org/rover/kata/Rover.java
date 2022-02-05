@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public final class Rover {
-    private final Location location;
+    private Location location;
 
     public Rover(int x, int y, Direction direction) {
         this(new Location(x, y, direction));
@@ -19,10 +19,10 @@ public final class Rover {
 
     private void execute(char command) {
         switch (command) {
-            case 'F' -> location.forward();
-            case 'B' -> location.backward();
-            case 'L' -> location.left();
-            case 'R' -> location.right();
+            case 'F' -> location = location.forward();
+            case 'B' -> location = location.backward();
+            case 'L' -> location = location.left();
+            case 'R' -> location = location.right();
         }
     }
 
