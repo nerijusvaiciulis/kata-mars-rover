@@ -37,11 +37,11 @@ public class LocationTest {
         Direction direction = EAST;
         location = new Location(x, y, direction);
 
-        location.forward();
+        Location actualLocation = location.forward();
 
-        assertThat(location.x()).isEqualTo(x + 1);
-        assertThat(location.y()).isEqualTo(y);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(actualLocation.x()).isEqualTo(x + 1);
+        assertThat(actualLocation.y()).isEqualTo(y);
+        assertThat(actualLocation.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -49,11 +49,11 @@ public class LocationTest {
         Direction direction = EAST;
         location = new Location(x, y, direction);
 
-        location.backward();
+        Location backward = location.backward();
 
-        assertThat(location.x()).isEqualTo(x - 1);
-        assertThat(location.y()).isEqualTo(y);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(backward.x()).isEqualTo(x - 1);
+        assertThat(backward.y()).isEqualTo(y);
+        assertThat(backward.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -61,11 +61,11 @@ public class LocationTest {
         Direction direction = NORTH;
         location = new Location(x, y, direction);
 
-        location.forward();
+        Location actualLocation = location.forward();
 
-        assertThat(location.y()).isEqualTo(y + 1);
-        assertThat(location.x()).isEqualTo(x);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(actualLocation.y()).isEqualTo(y + 1);
+        assertThat(actualLocation.x()).isEqualTo(x);
+        assertThat(actualLocation.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -73,11 +73,11 @@ public class LocationTest {
         Direction direction = NORTH;
         location = new Location(x, y, direction);
 
-        location.backward();
+        Location backward = location.backward();
 
-        assertThat(location.y()).isEqualTo(y - 1);
-        assertThat(location.x()).isEqualTo(x);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(backward.y()).isEqualTo(y - 1);
+        assertThat(backward.x()).isEqualTo(x);
+        assertThat(backward.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -85,11 +85,11 @@ public class LocationTest {
         Direction direction = WEST;
         location = new Location(x, y, direction);
 
-        location.forward();
+        Location actualLocation = location.forward();
 
-        assertThat(location.x()).isEqualTo(x - 1);
-        assertThat(location.y()).isEqualTo(y);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(actualLocation.x()).isEqualTo(x - 1);
+        assertThat(actualLocation.y()).isEqualTo(y);
+        assertThat(actualLocation.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -97,11 +97,11 @@ public class LocationTest {
         Direction direction = WEST;
         location = new Location(x, y, direction);
 
-        location.backward();
+        Location backward = location.backward();
 
-        assertThat(location.x()).isEqualTo(x + 1);
-        assertThat(location.y()).isEqualTo(y);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(backward.x()).isEqualTo(x + 1);
+        assertThat(backward.y()).isEqualTo(y);
+        assertThat(backward.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -109,11 +109,11 @@ public class LocationTest {
         Direction direction = SOUTH;
         location = new Location(x, y, direction);
 
-        location.forward();
+        Location actualLocation = location.forward();
 
-        assertThat(location.y()).isEqualTo(y - 1);
-        assertThat(location.x()).isEqualTo(x);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(actualLocation.y()).isEqualTo(y - 1);
+        assertThat(actualLocation.x()).isEqualTo(x);
+        assertThat(actualLocation.direction()).isEqualTo(direction);
     }
 
     @Test
@@ -121,15 +121,65 @@ public class LocationTest {
         Direction direction = SOUTH;
         location = new Location(x, y, direction);
 
-        location.backward();
+        Location backward = location.backward();
 
-        assertThat(location.y()).isEqualTo(y + 1);
-        assertThat(location.x()).isEqualTo(x);
-        assertThat(location.direction()).isEqualTo(direction);
+        assertThat(backward.y()).isEqualTo(y + 1);
+        assertThat(backward.x()).isEqualTo(x);
+        assertThat(backward.direction()).isEqualTo(direction);
     }
 
     @Test
     public void whenReportThenReturnFormattedText() {
         assertThat(location.report()).isEqualTo("(1, 2) EAST");
+    }
+
+    @Test
+    public void whenForwardThenOriginalLocationNotChanged() {
+        Location expected = new Location(location.x(), location.y(), location.direction());
+
+        location.forward();
+
+        assertThat(location).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenBackwardThenOriginalLocationNotChanged() {
+        Location expected = new Location(location.x(), location.y(), location.direction());
+
+        location.backward();
+
+        assertThat(location).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenLeftThenOriginalLocationNotChanged() {
+        Location expected = new Location(location.x(), location.y(), location.direction());
+
+        location.left();
+
+        assertThat(location).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenLeftThenDirectionLeft() {
+        Location left = location.left();
+
+        assertThat(left.direction()).isEqualTo(direction.left());
+    }
+
+    @Test
+    public void whenRightThenOriginalLocationNotChanged() {
+        Location expected = new Location(location.x(), location.y(), location.direction());
+
+        location.right();
+
+        assertThat(location).isEqualTo(expected);
+    }
+
+    @Test
+    public void whenRightThenDirectionRight() {
+        Location right = location.right();
+
+        assertThat(right.direction()).isEqualTo(direction.right());
     }
 }
