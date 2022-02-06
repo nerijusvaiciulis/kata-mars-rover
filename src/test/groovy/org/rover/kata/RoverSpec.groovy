@@ -13,12 +13,13 @@ class RoverSpec extends Specification {
         when:
             def rover = createRover()
         then:
-            with(rover) {
+            verifyAll(rover, {
                 x() == START_COORDINATE_X
-                y() == START_COORDINATE_Y
+                y() == START_COORDINATE_Y + 1
                 direction() == START_DIRECTION
                 location() == START_LOCATION
-            }
+            })
+
             new Rover(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION).location() == START_LOCATION
     }
 
