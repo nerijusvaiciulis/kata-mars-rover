@@ -1,29 +1,23 @@
 package org.rover.kata;
 
-import lombok.AllArgsConstructor;
+public record Rover(Location location) {
 
-@AllArgsConstructor
-public final class Rover {
-    private Location location;
-
-    public Rover(int x, int y, Direction direction) {
-        this(new Location(x, y, direction));
-    }
-
-    public String receiveCommand(String commands) {
+    public Rover receiveCommands(String commands) {
+        var movedRover = this;
         for (char command : commands.toCharArray()) {
-            execute(command);
+            movedRover = movedRover.execute(command);
         }
-        return location.report();
+        return movedRover;
     }
 
-    private void execute(char command) {
-        switch (command) {
-            case 'F' -> location = location.forward();
-            case 'B' -> location = location.backward();
-            case 'L' -> location = location.left();
-            case 'R' -> location = location.right();
-        }
+    private Rover execute(char command) {
+        return switch (command) {
+            case 'F' -> withLocation(location.forward());
+            case 'B' -> withLocation(location.backward());
+            case 'L' -> withLocation(location.left());
+            case 'R' -> withLocation(location.right());
+            default -> this;
+        };
     }
 
     public int x() {
@@ -40,5 +34,13 @@ public final class Rover {
 
     public Location location() {
         return location;
+    }
+
+    public Rover withLocation(Location location) {
+        return new Rover(location);
+    }
+
+    public String report() {
+        return location.report();
     }
 }

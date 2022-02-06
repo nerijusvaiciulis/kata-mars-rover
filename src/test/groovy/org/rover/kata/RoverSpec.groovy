@@ -3,6 +3,8 @@ package org.rover.kata
 
 import spock.lang.Specification
 
+import static org.rover.kata.Direction.NORTH
+
 class RoverSpec extends Specification {
     private static final def START_COORDINATE_X = 0
     private static final def START_COORDINATE_Y = 0
@@ -19,17 +21,15 @@ class RoverSpec extends Specification {
                 direction() == START_DIRECTION
                 location() == START_LOCATION
             })
-
-            new Rover(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION).location() == START_LOCATION
     }
 
     def "when receive commands '#commands' then rover in '#expectedLocation'"() {
         given:
             def rover = createRover()
         when:
-            rover.receiveCommand(commands)
+            def movedRover = rover.receiveCommands(commands)
         then:
-            rover.location() == expectedLocation
+            movedRover.location() == expectedLocation
         where:
             commands   || expectedLocation
             "F"        || START_LOCATION.forward()
@@ -43,9 +43,29 @@ class RoverSpec extends Specification {
 
     def "when receive command then report location"() {
         given:
-            def rover = new Rover(START_LOCATION)
-        expect:
-            rover.receiveCommand("") == START_LOCATION.report()
+            def rover = createRover()
+        when:
+            def movedRover = rover.receiveCommands("")
+        then:
+            movedRover.report() == START_LOCATION.report()
+    }
+
+    def "rover immutable when 'rover.receiveCommand()'"() {
+        given:
+            def rover = createRover()
+        when:
+            rover.receiveCommands("F")
+        then:
+            rover == createRover()
+    }
+
+    def "when rover.withLocation() then return rover copy with new location"() {
+        given:
+            def expectedLocation = new Location(1, 2, NORTH)
+        when:
+            def rover = createRover().withLocation(expectedLocation)
+        then:
+            rover.location() == expectedLocation
     }
 
     Rover createRover() {
