@@ -2,8 +2,6 @@ package org.rover.kata
 
 import spock.lang.Specification
 
-import static org.assertj.core.api.Assertions.assertThat
-import static org.assertj.core.api.Assertions.assertThat
 import static org.rover.kata.Direction.EAST
 import static org.rover.kata.Direction.NORTH
 import static org.rover.kata.Direction.SOUTH
@@ -89,8 +87,8 @@ class LocationSpec extends Specification {
     }
 
     def "when turn then direction change"() {
-        assertThat(createLocation().left()).isEqualTo(createLocation().withDirection(START_DIRECTION.left()))
-        assertThat(createLocation().right()).isEqualTo(createLocation().withDirection(START_DIRECTION.right()))
+        createLocation().left() == createLocation().withDirection(START_DIRECTION.left())
+        createLocation().right() == createLocation().withDirection(START_DIRECTION.right())
     }
 
     private Location createLocation() {
