@@ -88,7 +88,7 @@ class LocationSpec extends Specification {
             createLocation(SOUTH).backward() == createLocation(SOUTH).withY(START_COORDINATE_Y + 1)
     }
 
-    def "hen turn then direction change"() {
+    def "when turn then direction change"() {
         assertThat(createLocation().left()).isEqualTo(createLocation().withDirection(START_DIRECTION.left()))
         assertThat(createLocation().right()).isEqualTo(createLocation().withDirection(START_DIRECTION.right()))
     }
