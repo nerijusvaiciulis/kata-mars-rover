@@ -1,6 +1,6 @@
 package org.rover.kata
 
-import spock.lang.Shared
+
 import spock.lang.Specification
 
 class RoverSpec extends Specification {
@@ -10,11 +10,15 @@ class RoverSpec extends Specification {
     private static final def START_LOCATION = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION)
 
     def "when rover is initialized then fields are set"() {
-        expect:
-            createRover().x() == START_COORDINATE_X
-            createRover().y() == START_COORDINATE_Y
-            createRover().direction() == START_DIRECTION
-            createRover().location() == START_LOCATION
+        when:
+            def rover = createRover()
+        then:
+            with(rover) {
+                x() == START_COORDINATE_X
+                y() == START_COORDINATE_Y
+                direction() == START_DIRECTION
+                location() == START_LOCATION
+            }
             new Rover(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION).location() == START_LOCATION
     }
 
