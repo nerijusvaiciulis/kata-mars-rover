@@ -101,4 +101,3 @@ class LocationSpec extends Specification {
         return new Location(START_COORDINATE_X, START_COORDINATE_Y, direction)
     }
 }
-
