@@ -1,6 +1,5 @@
 package org.rover.kata;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +47,7 @@ public class LocationTest {
     }
 
     @Test
-    public void givenLocationWhenWithXThenReturnNewLocationWithOnlyXChanged() {
+    public void givenLocationWhenWithXThenReturnLocationCopyWithNewX() {
         int expected = 111;
         Location location = createLocation().withX(expected);
 
@@ -58,7 +57,7 @@ public class LocationTest {
     }
 
     @Test
-    public void givenLocationWhenWithYThenReturnNewLocationWithOnlyYChanged() {
+    public void givenLocationWhenWithYThenReturnLocationCopyWithNewY() {
         int expected = 111;
         Location location = createLocation().withY(expected);
 
@@ -68,7 +67,7 @@ public class LocationTest {
     }
 
     @Test
-    public void givenLocationWhenWithDirectionThenReturnNewLocationWithOnlyDirectionChanged() {
+    public void givenLocationWhenWithDirectionThenReturnLocationCopyWithNewDirection() {
         Direction expected = SOUTH;
         Location location = createLocation().withDirection(expected);
 
