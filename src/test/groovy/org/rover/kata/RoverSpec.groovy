@@ -15,7 +15,7 @@ class RoverSpec extends Specification {
         then:
             verifyAll(rover, {
                 x() == START_COORDINATE_X
-                y() == START_COORDINATE_Y + 1
+                y() == START_COORDINATE_Y
                 direction() == START_DIRECTION
                 location() == START_LOCATION
             })
