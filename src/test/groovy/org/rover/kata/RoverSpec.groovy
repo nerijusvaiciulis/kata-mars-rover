@@ -3,8 +3,7 @@ package org.rover.kata
 import spock.lang.Shared
 import spock.lang.Specification
 
-class RoverSpec extends Specification
-{
+class RoverSpec extends Specification {
     @Shared private final def START_COORDINATE_X = 0
     @Shared private final def START_COORDINATE_Y = 0
     @Shared private final Direction START_DIRECTION = Direction.EAST
@@ -22,8 +21,9 @@ class RoverSpec extends Specification
     def "when receive commands '#commands' then rover in '#expectedLocation'"() {
         given:
             def rover = createRover()
-        expect:
+        when:
             rover.receiveCommand(commands)
+        then:
             rover.location() == expectedLocation
         where:
             commands   || expectedLocation
