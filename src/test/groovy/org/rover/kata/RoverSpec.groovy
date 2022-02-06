@@ -4,10 +4,10 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 class RoverSpec extends Specification {
-    @Shared private final def START_COORDINATE_X = 0
-    @Shared private final def START_COORDINATE_Y = 0
-    @Shared private final Direction START_DIRECTION = Direction.EAST
-    @Shared final def START_LOCATION = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION)
+    private static final def START_COORDINATE_X = 0
+    private static final def START_COORDINATE_Y = 0
+    private static final Direction START_DIRECTION = Direction.EAST
+    private static final def START_LOCATION = new Location(START_COORDINATE_X, START_COORDINATE_Y, START_DIRECTION)
 
     def "when rover is initialized then fields are set"() {
         expect:
